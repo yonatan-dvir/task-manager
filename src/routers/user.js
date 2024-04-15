@@ -1,9 +1,11 @@
+// Import necessary modules
 const express = require("express");
 const User = require("../models/user");
-// Create a new Router instance
+
+// Create a new Router instance to handle user-related routes
 const router = new express.Router();
 
-// Setup creation endpoint - create user
+// Endpoint to create a new user
 router.post("/users", async (req, res) => {
   const user = new User(req.body);
   try {
@@ -14,7 +16,7 @@ router.post("/users", async (req, res) => {
   }
 });
 
-// Setup reading endpoint - read all users
+// Endpoint to fetch all users
 router.get("/users", async (req, res) => {
   try {
     const users = await User.find({});
@@ -24,7 +26,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-// Setup reading endpoint - read user by id
+// Endpoint to fetch a user by its ID
 router.get("/users/:id", async (req, res) => {
   const _id = req.params.id;
   try {
@@ -38,7 +40,7 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-// Setup updating endpoint - update user by id
+// Endpoint to update a user by its ID
 router.patch("/users/:id", async (req, res) => {
   // Send error if the update is unknown
   const updates = Object.keys(req.body);
@@ -65,7 +67,7 @@ router.patch("/users/:id", async (req, res) => {
   }
 });
 
-// Setup deletion endpoint - delete user by id
+// Endpoint to delete a user by its ID
 router.delete("/users/:id", async (req, res) => {
   const _id = req.params.id;
   try {
@@ -79,5 +81,5 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
-// Export the router
+// Export the router for use in other parts of the application
 module.exports = router;

@@ -1,9 +1,11 @@
+// Import necessary modules
 const express = require("express");
 const Task = require("../models/task");
-// Create a new Router instance
+
+// Create a new Router instance to handle task-related routes
 const router = new express.Router();
 
-// Setup creation endpoint - create task
+// Endpoint to create a new task
 router.post("/tasks", async (req, res) => {
   const task = new Task(req.body);
 
@@ -15,7 +17,7 @@ router.post("/tasks", async (req, res) => {
   }
 });
 
-// Setup reading endpoint - read all tasks
+// Endpoint to fetch all tasks
 router.get("/tasks", async (req, res) => {
   try {
     const tasks = await Task.find({});
@@ -25,7 +27,7 @@ router.get("/tasks", async (req, res) => {
   }
 });
 
-// Setup reading endpoint - read task by id
+// Endpoint to fetch a task by its ID
 router.get("/tasks/:id", async (req, res) => {
   const _id = req.params.id;
   try {
@@ -40,7 +42,7 @@ router.get("/tasks/:id", async (req, res) => {
   }
 });
 
-// Setup updating endpoint - update task by id
+// Endpoint to update a task by its ID
 router.patch("/tasks/:id", async (req, res) => {
   // Send error if the update is unknown
   const updates = Object.keys(req.body);
@@ -66,7 +68,7 @@ router.patch("/tasks/:id", async (req, res) => {
   }
 });
 
-// Setup deletion endpoint - delete task by id
+// Endpoint to delete a task by its ID
 router.delete("/tasks/:id", async (req, res) => {
   const _id = req.params.id;
   try {
@@ -80,5 +82,5 @@ router.delete("/tasks/:id", async (req, res) => {
   }
 });
 
-// Export the router
+// Export the router for use in other parts of the application
 module.exports = router;
