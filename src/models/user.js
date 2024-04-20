@@ -1,9 +1,10 @@
 // Import necessary modules
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 // Define the User model schema using Mongoose
-const User = mongoose.model("User", {
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -43,6 +44,18 @@ const User = mongoose.model("User", {
     },
   },
 });
+userSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    const hashedPassword = await bcrypt.hash(user.password, 8);
+    console.log(hashedPassword);
+    user.password = hashedPassword;
+  }
+  console.log(user.password);
+  next();
+});
 
-// Export the User model for use in other parts of the application
+const User = mongoose.model("User", userSchema);
+
+// Export the User model for using in other parts of the application
 module.exports = User;

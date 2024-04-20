@@ -14,4 +14,5 @@ const Task = mongoose.model("Task", {
   },
 });
 
+// Export the model for using in other parts of the application
 module.exports = Task;

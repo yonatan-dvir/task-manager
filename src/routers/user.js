@@ -9,9 +9,11 @@ const router = new express.Router();
 router.post("/users", async (req, res) => {
   const user = new User(req.body);
   try {
+    console.log("first");
     await user.save();
     res.status(201).send(user);
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });
@@ -81,5 +83,5 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
-// Export the router for use in other parts of the application
+// Export the router for using in other parts of the application
 module.exports = router;
