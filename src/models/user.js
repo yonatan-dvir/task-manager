@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // Define the User model schema using Mongoose
 const userSchema = new mongoose.Schema({
@@ -45,9 +46,17 @@ const userSchema = new mongoose.Schema({
       }
     },
   },
+  tokens: [
+    {
+      token: {
+        type: String,
+        require: true,
+      },
+    },
+  ],
 });
 
-// Define a method for searching user by email and password (credentials)
+// Define a static method for searching user by email and password (credentials)
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) {
@@ -58,6 +67,15 @@ userSchema.statics.findByCredentials = async (email, password) => {
     throw new Error("Unable to login");
   }
   return user;
+};
+
+// Define an instance method for generating a user token
+userSchema.methods.generateAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id.toString() }, "thisismysecret");
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
+  return token;
 };
 
 // Hash the user pain text password
