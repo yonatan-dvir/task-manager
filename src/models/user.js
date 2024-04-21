@@ -12,7 +12,9 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    unique: true,
+    require: true,
+    trim: true,
     lowercase: true, // Convert email to lowercase
     validate(value) {
       // Validate email using validator library
@@ -47,16 +49,16 @@ const userSchema = new mongoose.Schema({
 
 // Define a method for searching user by email and password (credentials)
 userSchema.statics.findByCredentials = async (email, password) => {
-  const user = await User.findOne({email});
-  if (!user){
-    throw new Error ('Unable to login');
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error("Unable to login");
   }
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch){
-    throw new Error ('Unable to login');
+  if (!isMatch) {
+    throw new Error("Unable to login");
   }
   return user;
-} 
+};
 
 // Hash the user pain text password
 userSchema.pre("save", async function (next) {
