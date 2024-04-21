@@ -51,7 +51,6 @@ userSchema.pre("save", async function (next) {
     console.log(hashedPassword);
     user.password = hashedPassword;
   }
-  console.log(user.password);
   next();
 });
 
