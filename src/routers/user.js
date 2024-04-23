@@ -27,11 +27,37 @@ router.post("/users/login", async (req, res) => {
       req.body.password
     );
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    res.status(201).send({ user, token });
     console.log(token);
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
+  }
+});
+
+// Create endoint for user logout
+router.post("/users/logout", auth, async (req, res) => {
+  try {
+    req.user.tokens = req.user.tokens.filter((token) => {
+      return token.token !== req.token;
+    });
+    await req.user.save();
+    res.send();
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+  }
+});
+
+// Create endoint for user logout
+router.post("/users/logoutAll", auth, async (req, res) => {
+  try {
+    req.user.tokens = [];
+    await req.user.save();
+    res.send();
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
   }
 });
 
