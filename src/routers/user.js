@@ -67,7 +67,7 @@ router.get("/users/me", auth, async (req, res) => {
 });
 
 // Endpoint to update a user by its ID
-router.patch("/users/:id", async (req, res) => {
+router.patch("/users/me", auth, async (req, res) => {
   // Send error if the update is unknown
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email", "password", "age"];
@@ -79,20 +79,16 @@ router.patch("/users/:id", async (req, res) => {
   }
 
   try {
-    const _id = req.params.id;
-    const user = await User.findById(_id);
+    // const _id = req.params.id;
+    // const user = await User.findById(_id);
     updates.forEach((update) => {
-      user[update] = req.body[update];
+      req.user[update] = req.body[update];
     });
-    await user.save();
-    // const user = await User.findByIdAndUpdate(_id, req.body, {
-    //   new: true,
-    //   runValidators: true,
-    // });
-    if (!user) {
-      return res.status(404).send();
-    }
-    res.send(user);
+    await req.user.save();
+    // if (!user) {
+    //   return res.status(404).send();
+    // }
+    res.send(req.user);
   } catch (e) {
     res.status(500).send(e);
   }
@@ -101,11 +97,11 @@ router.patch("/users/:id", async (req, res) => {
 // Endpoint to delete the logged in user
 router.delete("/users/me", auth, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.user._id);
-    if (!user) {
-      return res.status(404).send();
-    }
-    //await req.user.remove();
+    // const user = await User.findByIdAndDelete(req.user._id);
+    // if (!user) {
+    //   return res.status(404).send();
+    // }
+    await req.user.deleteOne();
     res.send(req.user);
   } catch (e) {
     res.status(500).send(e);
