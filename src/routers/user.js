@@ -98,15 +98,15 @@ router.patch("/users/:id", async (req, res) => {
   }
 });
 
-// Endpoint to delete a user by its ID
-router.delete("/users/:id", async (req, res) => {
-  const _id = req.params.id;
+// Endpoint to delete the logged in user
+router.delete("/users/me", auth, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(_id);
+    const user = await User.findByIdAndDelete(req.user._id);
     if (!user) {
       return res.status(404).send();
     }
-    res.send(user);
+    //await req.user.remove();
+    res.send(req.user);
   } catch (e) {
     res.status(500).send(e);
   }

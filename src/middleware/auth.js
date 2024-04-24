@@ -9,16 +9,12 @@ const auth = async (req, res, next) => {
       _id: decoded._id,
       "tokens.token": token,
     });
-    console.log(decoded);
-
-    console.log(token);
-    console.log(user);
     if (!user) {
       throw new Error();
     }
     req.token = token;
     req.user = user;
-
+    console.log(user);
     next();
   } catch (e) {
     console.log(e);
