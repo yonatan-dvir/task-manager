@@ -56,6 +56,13 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
+// Create a vrtual field of user's tasks
+userSchema.virtual("tasks", {
+  ref: "Task",
+  localField: "_id",
+  foreignField: "owner",
+});
+
 // Define a static method for searching user by email and password (credentials)
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
