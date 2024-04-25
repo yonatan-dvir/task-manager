@@ -79,15 +79,10 @@ router.patch("/users/me", auth, async (req, res) => {
   }
 
   try {
-    // const _id = req.params.id;
-    // const user = await User.findById(_id);
     updates.forEach((update) => {
       req.user[update] = req.body[update];
     });
     await req.user.save();
-    // if (!user) {
-    //   return res.status(404).send();
-    // }
     res.send(req.user);
   } catch (e) {
     res.status(500).send(e);
