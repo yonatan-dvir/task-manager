@@ -33,9 +33,11 @@ router.get("/tasks", auth, async (req, res) => {
 
 // Endpoint to fetch a task by its ID
 router.get("/tasks/:id", auth, async (req, res) => {
-  const _id = req.params.id;
   try {
-    const task = await Task.findOne({ _id, owner: req.user._id });
+    const task = await Task.findOne({
+      _id: req.params.id,
+      owner: req.user._id,
+    });
     if (!task) {
       return res.status(404).send();
     }
@@ -47,7 +49,7 @@ router.get("/tasks/:id", auth, async (req, res) => {
 });
 
 // Endpoint to update a task by its ID
-router.patch("/tasks/:id", async (req, res) => {
+router.patch("/tasks/:id", auth, async (req, res) => {
   // Send error if the update is unknown
   const updates = Object.keys(req.body);
   const allowedUpdates = ["description", "completed"];
@@ -58,8 +60,10 @@ router.patch("/tasks/:id", async (req, res) => {
     return res.status(400).send("Error - Invalid update!");
   }
   try {
-    const _id = req.params.id;
-    const task = await Task.findById(_id);
+    const task = await Task.findOne({
+      _id: req.params.id,
+      owner: req.user._id,
+    });
     updates.forEach((update) => {
       task[update] = req.body[update];
     });
@@ -74,10 +78,12 @@ router.patch("/tasks/:id", async (req, res) => {
 });
 
 // Endpoint to delete a task by its ID
-router.delete("/tasks/:id", async (req, res) => {
-  const _id = req.params.id;
+router.delete("/tasks/:id", auth, async (req, res) => {
   try {
-    const task = await Task.findByIdAndDelete(_id);
+    const task = await Task.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.user._id,
+    });
     if (!task) {
       return res.status(404).send();
     }
