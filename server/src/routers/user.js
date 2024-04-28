@@ -1,4 +1,3 @@
-// Import necessary modules
 const express = require("express");
 const User = require("../models/user");
 const Task = require("../models/task");
@@ -12,7 +11,7 @@ router.post("/users", async (req, res) => {
   console.log("creating user");
   const user = new User(req.body);
   try {
-    await user.save();
+    //await user.save();
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (e) {
@@ -30,7 +29,7 @@ router.post("/users/login", async (req, res) => {
     );
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
-    console.log(token);
+    //console.log(token);
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
@@ -51,7 +50,7 @@ router.post("/users/logout", auth, async (req, res) => {
   }
 });
 
-// Create endpoint for user logout
+// Create endpoint for user logout from all devices
 router.post("/users/logoutAll", auth, async (req, res) => {
   try {
     req.user.tokens = [];
@@ -107,5 +106,4 @@ router.delete("/users/me", auth, async (req, res) => {
   }
 });
 
-// Export the router for using in other parts of the application
 module.exports = router;

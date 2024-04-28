@@ -1,4 +1,3 @@
-// Import necessary modules
 const express = require("express");
 const Task = require("../models/task");
 const auth = require("../middleware/auth");
@@ -93,5 +92,4 @@ router.delete("/tasks/:id", auth, async (req, res) => {
   }
 });
 
-// Export the router for using in other parts of the application
 module.exports = router;

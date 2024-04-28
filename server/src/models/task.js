@@ -1,7 +1,5 @@
-// Import necessary modules
 const mongoose = require("mongoose");
 
-// Define the Task model schema using Mongoose
 const Task = mongoose.model("Task", {
   description: {
     type: String,
@@ -18,5 +16,4 @@ const Task = mongoose.model("Task", {
   },
 });
 
-// Export the model for using in other parts of the application
 module.exports = Task;

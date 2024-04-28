@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="../src/styles/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="tabs">
+        <button
+          id="loginTab"
+          class="active-tab"
+          onclick="toggleForm('loginForm')"
+        >
+          Login
+        </button>
+        <button id="signupTab" onclick="toggleForm('signupForm')">
+          Sign Up
+        </button>
+      </div>
+      <div id="loginForm" class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="login(event)">
+          <input type="email" placeholder="Email" id="loginEmail" required />
+          <input
+            type="password"
+            placeholder="Password"
+            id="loginPassword"
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+        <div id="message-login"></div>
+      </div>
+      <div id="signupForm" class="form-container" style="display: none">
+        <h2>Sign Up</h2>
+        <form id="signupForm" onsubmit="signup(event)">
+          <input type="text" placeholder="Name" id="signupName" required />
+          <input type="email" placeholder="Email" id="signupEmail" required />
+          <input
+            type="password"
+            placeholder="Password"
+            id="signupPassword"
+            required
+          />
+          <button type="submit">Sign Up</button>
+        </form>
+        <div id="message-signup"></div>
+      </div>
+    </div>
+    <script src="../src/index.js"></script>
+  </body>
+</html>
