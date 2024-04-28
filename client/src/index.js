@@ -23,6 +23,7 @@ async function signup(event) {
   const name = document.getElementById("signupName").value;
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
+  const age = document.getElementById("signupAge").value;
 
   try {
     const response = await fetch("http://localhost:3000/users", {
@@ -30,7 +31,7 @@ async function signup(event) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, age }),
     });
 
     const data = await response.json();
@@ -43,12 +44,8 @@ async function signup(event) {
     } else {
       // Show error message
       console.log(data);
-      document.getElementById("message-signup").innerText =
-        "Please try again - There is user using this email";
+      document.getElementById("message-signup").innerText = "Error (Fix it...)";
     }
-
-    //alert("User created successfully!");
-    //console.log(data);
   } catch (error) {
     console.error("Error:", error);
   }
@@ -58,6 +55,7 @@ async function login(event) {
   event.preventDefault();
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
+  const form = event.target;
 
   try {
     const response = await fetch("http://localhost:3000/users/login", {
@@ -69,7 +67,16 @@ async function login(event) {
     });
 
     const data = await response.json();
-    alert("Logged in successfully!");
+    if (response.ok) {
+      // Show success message
+      document.getElementById("message-login").innerText =
+        "Welcome " + data.user.name + "!";
+      form.reset(); // Reset form fields
+    } else {
+      // Show error message
+      console.log(data);
+      document.getElementById("message-login").innerText = "Error (Fix it...)";
+    }
     console.log(data);
   } catch (error) {
     console.error("Error:", error);
