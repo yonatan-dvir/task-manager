@@ -1,12 +1,10 @@
-// Import the express framework
 const express = require("express");
+const userRouter = require("./routers/user.js");
+const taskRouter = require("./routers/task.js");
+const cors = require("cors");
 
 // Import the database connection setup
 require("./db/mongoose");
-
-// Import routers for handling user and task routes
-const userRouter = require("./routers/user.js");
-const taskRouter = require("./routers/task.js");
 
 // Create an instance of the Express application
 const app = express();
@@ -16,6 +14,9 @@ const port = 3000;
 
 // Use Express's automatically incoming json requests bodies converting
 app.use(express.json());
+
+// Enable CORS
+app.use(cors());
 
 // Register user and task routers with the Express application
 app.use(userRouter);

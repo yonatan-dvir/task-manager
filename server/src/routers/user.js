@@ -9,6 +9,7 @@ const router = new express.Router();
 
 // Endpoint to create a new user (sign-up)
 router.post("/users", async (req, res) => {
+  console.log("creating user");
   const user = new User(req.body);
   try {
     await user.save();
