@@ -1,6 +1,7 @@
 // Import necessary modules
 const express = require("express");
 const User = require("../models/user");
+const Task = require("../models/task");
 const auth = require("../middleware/auth");
 
 // Create a new Router instance to handle user-related routes
@@ -49,7 +50,7 @@ router.post("/users/logout", auth, async (req, res) => {
   }
 });
 
-// Create endoint for user logout
+// Create endpoint for user logout
 router.post("/users/logoutAll", auth, async (req, res) => {
   try {
     req.user.tokens = [];
@@ -96,9 +97,11 @@ router.delete("/users/me", auth, async (req, res) => {
     // if (!user) {
     //   return res.status(404).send();
     // }
+    await Task.deleteMany({ owner: req.user._id });
     await req.user.deleteOne();
     res.send(req.user);
   } catch (e) {
+    console.log(e);
     res.status(500).send(e);
   }
 });
