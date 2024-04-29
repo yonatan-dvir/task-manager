@@ -44,7 +44,7 @@ async function signup(event) {
     } else {
       // Show error message
       console.log(data);
-      document.getElementById("message-signup").innerText = "Error (Fix it...)";
+      document.getElementById("message-signup").innerText = data.error;
     }
   } catch (error) {
     console.error("Error:", error);
@@ -75,7 +75,7 @@ async function login(event) {
     } else {
       // Show error message
       console.log(data);
-      document.getElementById("message-login").innerText = "Error (Fix it...)";
+      document.getElementById("message-login").innerText = data.error;
     }
     console.log(data);
   } catch (error) {

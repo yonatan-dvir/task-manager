@@ -16,7 +16,13 @@ router.post("/users", async (req, res) => {
     res.status(201).send({ user, token });
   } catch (e) {
     console.log(e);
-    res.status(400).send(e);
+    if (e.code === 11000 && e.keyPattern.email) {
+      // Email address is already taken
+      res.status(400).send({ error: "Email address is already in use" });
+    } else {
+      // Other errors (e.g., validation errors)
+      res.status(400).send({ error: e.message });
+    }
   }
 });
 
@@ -29,10 +35,9 @@ router.post("/users/login", async (req, res) => {
     );
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
-    //console.log(token);
   } catch (e) {
     console.log(e);
-    res.status(400).send(e);
+    res.status(400).send({ error: e.message });
   }
 });
 
@@ -46,7 +51,7 @@ router.post("/users/logout", auth, async (req, res) => {
     res.send();
   } catch (e) {
     console.log(e);
-    res.status(500).send();
+    res.status(500).send({ error: e.message });
   }
 });
 
@@ -58,7 +63,7 @@ router.post("/users/logoutAll", auth, async (req, res) => {
     res.send();
   } catch (e) {
     console.log(e);
-    res.status(500).send();
+    res.status(500).send({ error: e.message });
   }
 });
 
@@ -76,7 +81,7 @@ router.patch("/users/me", auth, async (req, res) => {
     allowedUpdates.includes(update)
   );
   if (!isValidOperation) {
-    return res.status(400).send("Error - Invalid update!");
+    return res.status(400).send({ error: e.message }"Error - Invalid update!");
   }
 
   try {
