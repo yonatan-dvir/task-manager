@@ -81,7 +81,7 @@ router.patch("/users/me", auth, async (req, res) => {
     allowedUpdates.includes(update)
   );
   if (!isValidOperation) {
-    return res.status(400).send({ error: e.message }"Error - Invalid update!");
+    return res.status(400).send("Error - Invalid update!");
   }
 
   try {
@@ -91,7 +91,7 @@ router.patch("/users/me", auth, async (req, res) => {
     await req.user.save();
     res.send(req.user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send({ error: e.message });
   }
 });
 
@@ -107,7 +107,7 @@ router.delete("/users/me", auth, async (req, res) => {
     res.send(req.user);
   } catch (e) {
     console.log(e);
-    res.status(500).send(e);
+    res.status(500).send({ error: e.message });
   }
 });
 

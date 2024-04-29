@@ -9,3 +9,11 @@ Task Manager is a simple web application built with Node.js, Express.js, and Mon
 - Secure Password Storage: User passwords are securely hashed using bcrypt before being stored in the database.
 - Error Handling: The application provides meaningful error messages for common user errors, such as invalid credentials or duplicate email addresses during registration.
 - RESTful API: The application provides a RESTful API for interacting with user accounts and tasks. API endpoints are documented below.
+
+## Client-Side Functionality
+The client-side of the Task Manager application is built using HTML, CSS, and JavaScript. It provides a user-friendly interface for accessing the features mentioned above. Users can:
+
+Interact with forms for user authentication, including registration and login.
+View their list of tasks, including details such as title, description, due date, and status.
+Create new tasks, update existing tasks, mark tasks as completed, and delete tasks.
+Receive real-time feedback and error messages when interacting with the application.
