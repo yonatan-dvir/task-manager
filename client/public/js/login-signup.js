@@ -72,6 +72,8 @@ async function login(event) {
       document.getElementById("message-login").innerText =
         "Welcome " + data.user.name + "!";
       form.reset(); // Reset form fields
+      // Store the token in local storage
+      localStorage.setItem("token", data.token);
     } else {
       // Show error message
       console.log(data);

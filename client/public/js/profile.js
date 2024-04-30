@@ -4,6 +4,7 @@ async function showProfile() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Set the Authorization header with the JWT token
       },
     });
 
