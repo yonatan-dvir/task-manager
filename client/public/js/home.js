@@ -154,5 +154,32 @@ async function completeTask(taskId) {
   }
 }
 
+async function logout() {
+  try {
+    const response = await fetch("http://localhost:3000/users/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Clear token from local storage
+      localStorage.removeItem("token");
+
+      // Redirect the user to the home.html page
+      window.location.href = "login-signup.html";
+    } else {
+      // Show error message
+      console.log(data);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 showProfile();
 showTasks();
+document.getElementById("logoutBtn").addEventListener("click", logout);
