@@ -9,7 +9,6 @@ async function showProfile() {
     });
 
     const user = await response.json();
-
     if (response.ok) {
       console.log(user);
       renderProfile(user);
@@ -25,7 +24,7 @@ async function showProfile() {
 
 function renderProfile(user) {
   document.getElementById("profile-details").innerHTML = `
-    <h3>${user.name}'s Profile</h3>
+    <h2>${user.name}'s Profile</h2>
     <div class="profile-item">
       <label>Email:</label>
       <span>${user.email}</span>
@@ -41,4 +40,42 @@ function renderProfile(user) {
   `;
 }
 
+async function showTasks() {
+  try {
+    const response = await fetch("http://localhost:3000/tasks", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Set the Authorization header with the JWT token
+      },
+    });
+
+    const tasks = await response.json();
+    if (response.ok) {
+      console.log(tasks);
+      renderTasks(tasks);
+    } else {
+      // Show error message
+      console.log(tasks);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+function renderTasks(tasks) {
+  const taskList = document.getElementById("taskList");
+
+  // Clear the existing content of the task list
+  taskList.innerHTML = "";
+
+  // Iterate over each task and append a new list item for each one
+  tasks.forEach((task) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = task.description;
+    taskList.appendChild(listItem);
+  });
+}
+
 showProfile();
+showTasks();

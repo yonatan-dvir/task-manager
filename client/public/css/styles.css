@@ -88,7 +88,7 @@ section {
 label {
   display: block;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 input[type="text"] {
@@ -122,8 +122,4 @@ footer {
   color: white;
   text-align: center;
   padding: 10px 0;
-}
-
-.form-container h2 {
-  text-align: center; /* Center text within the h2 element */
 }

@@ -16,7 +16,7 @@ router.post("/tasks", auth, async (req, res) => {
     await task.save();
     res.status(201).send(task);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send({ error: e.message });
   }
 });
 
@@ -26,7 +26,7 @@ router.get("/tasks", auth, async (req, res) => {
     const tasks = await Task.find({ owner: req.user._id });
     res.send(tasks);
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send({ error: e.message });
   }
 });
 
@@ -43,7 +43,7 @@ router.get("/tasks/:id", auth, async (req, res) => {
     res.send(task);
   } catch (e) {
     console.log("here");
-    res.status(500).send();
+    res.status(500).send({ error: e.message });
   }
 });
 
@@ -72,7 +72,7 @@ router.patch("/tasks/:id", auth, async (req, res) => {
     }
     res.send(task);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send({ error: e.message });
   }
 });
 
@@ -88,7 +88,7 @@ router.delete("/tasks/:id", auth, async (req, res) => {
     }
     res.send(task);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send({ error: e.message });
   }
 });
 

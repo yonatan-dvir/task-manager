@@ -11,6 +11,8 @@
       <h1>Welcome to Task Manager</h1>
       <nav>
         <ul>
+          <li><span id="loggedInUser"></span></li>
+          <li><a href="profile.html">Edit Profile</a></li>
           <li><a href="#" id="logoutBtn">Logout</a></li>
         </ul>
       </nav>
@@ -18,15 +20,16 @@
 
     <main>
       <section id="profileDetails">
-        <h2>Your Profile</h2>
-        <div></div>
+        <div id="profile-details"></div>
       </section>
 
       <section id="tasks">
-        <h2>Your Tasks</h2>
-        <ul id="taskList">
-          <!-- Task items will be dynamically added here -->
-        </ul>
+        <h2>Uncompleted Tasks:</h2>
+        <ul id="taskList"></ul>
+      </section>
+
+      <section id="add-task">
+        <h2>Add a Task</h2>
         <form id="createTaskForm">
           <label for="taskName">Task Name:</label>
           <input type="text" id="taskName" name="taskName" required />
@@ -39,6 +42,6 @@
       <p>&copy; 2024 Task Manager By Yonatan Dvir</p>
     </footer>
 
-    <script src="js/profile.js"></script>
+    <script src="js/home.js"></script>
   </body>
 </html>

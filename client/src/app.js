@@ -10,7 +10,11 @@ const publicDirPath = path.join(__dirname, "../public");
 // Serve static files from the 'public' directory
 app.use(express.static(publicDirPath));
 
-// Start the server
+// Define route handler for the root URL
+app.get("/", (req, res) => {
+  res.sendFile(path.join(publicDirPath, "home.html"));
+});
+
 app.listen(port, () => {
   console.log(`Client server is up and running on port ${port}...`);
 });
