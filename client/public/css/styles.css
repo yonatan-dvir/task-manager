@@ -159,8 +159,8 @@ li input[type="checkbox"] {
 #taskContainer {
   display: inline-block; /* Set the container to inline-block */
   text-align: left; /* Align task list to the left */
-  max-width: 250px; /* Set the maximum width for the task container */
-  min-width: 250px;
+  max-width: 400px; /* Set the maximum width for the task container */
+  min-width: 200px;
 }
 
 #taskList {

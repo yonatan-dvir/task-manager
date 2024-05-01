@@ -75,10 +75,10 @@ function renderTasks(tasks) {
   tasks.forEach((task) => {
     if (!task.completed) {
       const listItem = document.createElement("li");
+      listItem.id = task._id;
       // Add Mark as completed button
       const completedButton = document.createElement("input");
       completedButton.type = "checkbox";
-      completedButton.id = task._id;
       // Call completeTask with task ID when button is clicked
       completedButton.addEventListener("click", () => completeTask(task._id));
       listItem.appendChild(completedButton);
@@ -136,9 +136,14 @@ async function completeTask(taskId) {
     const task = await response.json();
     if (response.ok) {
       console.log(task);
+
+      const taskElement = document.getElementById(taskId);
+      taskElement.style.transition = "opacity 1.5s";
+      taskElement.style.opacity = "0";
+
       setTimeout(() => {
         showTasks();
-      }, 500);
+      }, 1500);
     } else {
       // Show error message
       console.log(task);
