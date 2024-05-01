@@ -37,10 +37,10 @@ async function signup(event) {
     const data = await response.json();
 
     if (response.ok) {
-      // Show success message
-      document.getElementById("message-signup").innerText =
-        "User created successfully!";
-      form.reset(); // Reset form fields
+      // Store the token in local storage
+      localStorage.setItem("token", data.token);
+      // Redirect the user to the profile.html page
+      window.location.href = "profile.html";
     } else {
       // Show error message
       console.log(data);
@@ -68,12 +68,10 @@ async function login(event) {
 
     const data = await response.json();
     if (response.ok) {
-      // Show success message
-      document.getElementById("message-login").innerText =
-        "Welcome " + data.user.name + "!";
-      form.reset(); // Reset form fields
       // Store the token in local storage
       localStorage.setItem("token", data.token);
+      // Redirect the user to the profile.html page
+      window.location.href = "profile.html";
     } else {
       // Show error message
       console.log(data);

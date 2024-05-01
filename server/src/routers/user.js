@@ -98,10 +98,6 @@ router.patch("/users/me", auth, async (req, res) => {
 // Endpoint to delete the logged in user
 router.delete("/users/me", auth, async (req, res) => {
   try {
-    // const user = await User.findByIdAndDelete(req.user._id);
-    // if (!user) {
-    //   return res.status(404).send();
-    // }
     await Task.deleteMany({ owner: req.user._id });
     await req.user.deleteOne();
     res.send(req.user);
