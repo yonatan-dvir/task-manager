@@ -5,26 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Manager</title>
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="icon" type="image/png" href="../img/task-logo.png" />
+    <link rel="icon" type="image/png" href="task-logo.png" />
   </head>
   <body>
+    <header>
+      <h1>Welcome to Task Manager</h1>
+    </header>
+
     <div class="container">
       <div class="tabs">
+        <button id="loginTab" onclick="toggleForm('loginForm')">Login</button>
         <button
-          id="loginTab"
-          class="active-tab"
-          onclick="toggleForm('loginForm')"
+          id="signupTab"
+          class="unactive-tab"
+          onclick="toggleForm('signupForm')"
         >
-          Login
-        </button>
-
-        <button id="signupTab" onclick="toggleForm('signupForm')">
           Sign Up
         </button>
       </div>
+
       <div id="loginForm" class="form-container">
         <h2>Login</h2>
-        <form id="loginForm" onsubmit="login(event)">
+        <form onsubmit="login(event)">
           <input type="email" placeholder="Email" id="loginEmail" required />
           <input
             type="password"
@@ -36,9 +38,10 @@
         </form>
         <div id="message-login"></div>
       </div>
+
       <div id="signupForm" class="form-container" style="display: none">
         <h2>Sign Up</h2>
-        <form id="signupForm" onsubmit="signup(event)">
+        <form onsubmit="signup(event)">
           <input type="text" placeholder="Name" id="signupName" required />
           <input type="email" placeholder="Email" id="signupEmail" required />
           <input
@@ -48,12 +51,16 @@
             required
           />
           <input type="number" placeholder="Age" id="signupAge" />
-
           <button type="submit">Sign Up</button>
         </form>
         <div id="message-signup"></div>
       </div>
     </div>
+
+    <footer>
+      <p>&copy; 2024 Task Manager By Yonatan Dvir</p>
+    </footer>
+
     <script src="js/login-signup.js"></script>
   </body>
 </html>

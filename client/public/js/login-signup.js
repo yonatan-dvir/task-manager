@@ -7,13 +7,13 @@ function toggleForm(formId) {
   if (formId === "loginForm") {
     loginForm.style.display = "block";
     signupForm.style.display = "none";
-    loginTab.classList.add("active-tab");
-    signupTab.classList.remove("active-tab");
+    loginTab.classList.remove("unactive-tab");
+    signupTab.classList.add("unactive-tab");
   } else {
     loginForm.style.display = "none";
     signupForm.style.display = "block";
-    loginTab.classList.remove("active-tab");
-    signupTab.classList.add("active-tab");
+    loginTab.classList.add("unactive-tab");
+    signupTab.classList.remove("unactive-tab");
   }
 }
 
@@ -39,8 +39,6 @@ async function signup(event) {
     if (response.ok) {
       // Store the token in local storage
       localStorage.setItem("token", data.token);
-      // Redirect the user to the profile.html page
-      window.location.href = "profile.html";
     } else {
       // Show error message
       console.log(data);
