@@ -11,7 +11,9 @@ async function showProfile() {
     const user = await response.json();
     if (response.ok) {
       console.log(user);
-      renderProfile(user);
+      document.getElementById("header-title").innerHTML = `
+    <h1>${user.name}'s Task manager</h1>`;
+      //renderProfile(user);
     } else {
       // Show error message
       console.log(user);
@@ -72,16 +74,21 @@ function renderTasks(tasks) {
   // Iterate over each task and append a new list item for each one
   tasks.forEach((task) => {
     if (!task.completed) {
-      // Add task dexcription
       const listItem = document.createElement("li");
-      listItem.textContent = task.description;
-      taskList.appendChild(listItem);
       // Add Mark as completed button
-      const completedButton = document.createElement("button");
-      completedButton.textContent = "Done";
+      const completedButton = document.createElement("input");
+      completedButton.type = "checkbox";
+      completedButton.id = task._id;
       // Call completeTask with task ID when button is clicked
       completedButton.addEventListener("click", () => completeTask(task._id));
-      taskList.appendChild(completedButton);
+      listItem.appendChild(completedButton);
+      // Add task description
+      const description = document.createElement("span");
+      description.textContent = task.description;
+      listItem.appendChild(description);
+
+      // Append the whole task (checkbox and description) to the list
+      taskList.appendChild(listItem);
     }
   });
 }
@@ -129,7 +136,9 @@ async function completeTask(taskId) {
     const task = await response.json();
     if (response.ok) {
       console.log(task);
-      showTasks();
+      setTimeout(() => {
+        showTasks();
+      }, 500);
     } else {
       // Show error message
       console.log(task);

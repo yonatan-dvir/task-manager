@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Welcome to Task Manager</h1>
+      <div id="header-title"></div>
       <nav>
         <ul>
           <li><span id="loggedInUser"></span></li>
@@ -22,16 +22,9 @@
       <section id="profileDetails">
         <div id="profile-details"></div>
       </section>
-
-      <section id="tasks">
-        <h2>Uncompleted Tasks:</h2>
-        <ul id="taskList"></ul>
-      </section>
-
       <section id="add-task">
         <h2>Add a Task</h2>
         <form onsubmit="addTask(event)" id="createTaskForm">
-          <label for="taskName">Task Name:</label>
           <input
             placeholder="Task Description"
             type="text"
@@ -39,9 +32,17 @@
             name="taskName"
             required
           />
-          <button type="submit">Add Task</button>
+          <button type="submit">Add</button>
         </form>
       </section>
+      <main>
+        <section id="uncompleted-tasks">
+          <h2>Uncompleted Tasks:</h2>
+          <div id="taskContainer">
+            <ul id="taskList"></ul>
+          </div>
+        </section>
+      </main>
     </main>
 
     <footer>

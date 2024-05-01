@@ -52,7 +52,7 @@ header {
   color: #fff;
   padding: 1rem;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 header h1 {
@@ -78,7 +78,7 @@ nav ul li a {
 }
 
 main {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 section {
@@ -122,4 +122,53 @@ footer {
   color: white;
   text-align: center;
   padding: 10px 0;
+}
+
+/* Center the Add a Task section */
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Adjust the layout of the form elements */
+form#createTaskForm {
+  display: flex; /* Use flexbox layout */
+  align-items: baseline; /* Align items vertically */
+  margin-top: 10px;
+}
+
+form#createTaskForm input[type="text"] {
+  flex: 1; /* Allow input field to grow and shrink */
+  margin-right: 10px; /* Add margin between input field and button */
+}
+
+form#createTaskForm button[type="submit"] {
+  padding: 8px 12px; /* Adjust button padding */
+}
+
+li input[type="checkbox"] {
+  margin-right: 8px; /* Adjust the value as needed */
+}
+
+#uncompleted-tasks {
+  text-align: center; /* Center the entire section */
+}
+
+#taskContainer {
+  display: inline-block; /* Set the container to inline-block */
+  text-align: left; /* Align task list to the left */
+  max-width: 250px; /* Set the maximum width for the task container */
+  min-width: 250px;
+}
+
+#taskList {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+}
+
+#taskList li {
+  margin-bottom: 10px; /* Adjust the vertical spacing between tasks */
+  word-wrap: break-word; /* Allow long words to wrap */
 }
