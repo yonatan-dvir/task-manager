@@ -71,10 +71,41 @@ function renderTasks(tasks) {
 
   // Iterate over each task and append a new list item for each one
   tasks.forEach((task) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = task.description;
-    taskList.appendChild(listItem);
+    if (!task.completed) {
+      const listItem = document.createElement("li");
+      listItem.textContent = task.description;
+      taskList.appendChild(listItem);
+    }
   });
+}
+
+async function addTask(event) {
+  event.preventDefault();
+  const form = event.target;
+  const description = document.getElementById("taskName").value;
+  try {
+    const response = await fetch("http://localhost:3000/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Set the Authorization header with the JWT token
+      },
+      body: JSON.stringify({ description }),
+    });
+
+    const task = await response.json();
+    if (response.ok) {
+      console.log(task);
+      form.reset();
+      showTasks();
+    } else {
+      // Show error message
+      console.log(task);
+      document.getElementById("profile-details").innerText = task.error;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 showProfile();

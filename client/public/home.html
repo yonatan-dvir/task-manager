@@ -30,9 +30,15 @@
 
       <section id="add-task">
         <h2>Add a Task</h2>
-        <form id="createTaskForm">
+        <form onsubmit="addTask(event)" id="createTaskForm">
           <label for="taskName">Task Name:</label>
-          <input type="text" id="taskName" name="taskName" required />
+          <input
+            placeholder="Task Description"
+            type="text"
+            id="taskName"
+            name="taskName"
+            required
+          />
           <button type="submit">Add Task</button>
         </form>
       </section>
