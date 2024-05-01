@@ -72,9 +72,16 @@ function renderTasks(tasks) {
   // Iterate over each task and append a new list item for each one
   tasks.forEach((task) => {
     if (!task.completed) {
+      // Add task dexcription
       const listItem = document.createElement("li");
       listItem.textContent = task.description;
       taskList.appendChild(listItem);
+      // Add Mark as completed button
+      const completedButton = document.createElement("button");
+      completedButton.textContent = "Done";
+      // Call completeTask with task ID when button is clicked
+      completedButton.addEventListener("click", () => completeTask(task._id));
+      taskList.appendChild(completedButton);
     }
   });
 }
@@ -97,6 +104,31 @@ async function addTask(event) {
     if (response.ok) {
       console.log(task);
       form.reset();
+      showTasks();
+    } else {
+      // Show error message
+      console.log(task);
+      document.getElementById("profile-details").innerText = task.error;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+async function completeTask(taskId) {
+  try {
+    const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Set the Authorization header with the JWT token
+      },
+      body: JSON.stringify({ completed: true }),
+    });
+
+    const task = await response.json();
+    if (response.ok) {
+      console.log(task);
       showTasks();
     } else {
       // Show error message
