@@ -180,6 +180,17 @@ async function logout() {
   }
 }
 
+function checkLoggedIn() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    // Redirect to login page or display error message
+    window.location.href = "login-signup.html";
+  }
+}
+
+// Call the function when the page loads
+checkLoggedIn();
+
 showProfile();
 showTasks();
 document.getElementById("logoutBtn").addEventListener("click", logout);

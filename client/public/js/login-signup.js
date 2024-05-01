@@ -40,7 +40,7 @@ async function signup(event) {
       // Store the token in local storage
       localStorage.setItem("token", data.token);
       // Redirect the user to the home.html page
-      window.location.href = "profile.html";
+      window.location.href = "home.html";
     } else {
       // Show error message
       console.log(data);
@@ -71,7 +71,7 @@ async function login(event) {
       // Store the token in local storage
       localStorage.setItem("token", data.token);
       // Redirect the user to the home.html page
-      window.location.href = "profile.html";
+      window.location.href = "home.html";
     } else {
       // Show error message
       console.log(data);
